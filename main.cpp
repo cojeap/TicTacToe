@@ -15,6 +15,7 @@ using std::cin;
 
 int main() {
     try{
+
         //init
 
         const int sizeX=800;
@@ -27,7 +28,7 @@ int main() {
 
         sf::Font someFont;
 
-        if(!someFont.loadFromFile("Resources/good times rg.ttf")) throw Exceptions("Failed to load font from file",30);
+        if(!someFont.loadFromFile("Resources/good times rg.ttf")) throw Exceptions("Failed to load font from file. (main.cpp)",31);
 
         //background
         sf::RectangleShape background;
@@ -66,7 +67,7 @@ int main() {
         e.ShowExcept();
     }
     catch(...){
-        std::cerr<<"Unknown Problem"<<std::endl;
+        std::cerr<<"Unknown Problem!\t0"<<std::endl;
     }
     return 0;
 }

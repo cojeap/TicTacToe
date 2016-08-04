@@ -11,7 +11,7 @@
 
 class Exceptions {
 public:
-    Exceptions() : msg{"Some error occured!"},line{0} {};
+    Exceptions() : msg{"Some error occurred!"},line{0} {};
     Exceptions(std::string str) : msg{str},line{0} {};
     Exceptions(std::string str,int num) : msg{str},line{num} {};
     ~Exceptions()=default;
