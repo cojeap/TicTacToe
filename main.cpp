@@ -75,9 +75,9 @@ int main() {
                                 winPauseScreen.SetWinType(WinType::playing);
                                 winPauseScreen.pause = true;
                                 log.w("Pause true");
-                                winPauseScreen.HandleEvent(event);
                             }
                         }
+                        winPauseScreen.HandleEvent(event);
                         textBox.HandleEvent(event);
                        //condition = textBox.CheckWinLogic();
                     }
@@ -92,7 +92,7 @@ int main() {
                         //display
                         window.display();
                     } else {
-                        
+
                         log.w("game pause");
                         window.clear(sf::Color::Black);
                         winPauseScreen.Draw();
