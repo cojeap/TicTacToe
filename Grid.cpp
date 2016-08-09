@@ -5,6 +5,8 @@
 #include "Grid.h"
 
 
+
+
 Grid::Grid(int x,int y, sf::RenderWindow& windowRef) : sizeX{x},sizeY{y},winRef{windowRef} {
 
     pointSize=9; // force  9 for the TicTacToe grid.
@@ -68,7 +70,7 @@ void Grid::SetPositions(sf::RectangleShape& box, int i) {
             box.setPosition(2*fx/3,2*fy/3);
             break;
         default:
-            box.setPosition(0,0);
+
             break;
     }
 }

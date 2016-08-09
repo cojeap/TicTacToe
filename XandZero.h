@@ -10,6 +10,9 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
+#include "WinCondition.h"
+
+
 class XandZero {
 public:
     XandZero(int x,int y, sf::RenderWindow& windowRef,sf::Font& fnt);
@@ -17,7 +20,9 @@ public:
     void HandleEvent(sf::Event& evt);
     void DrawHighlight();
     void Draw();
+    WinCondition CheckWinLogic();
 private:
+    WinCondition condition;
     int UpdatePosition(sf::Vector2f smVct);
     unsigned int arrSize;
     sf::RectangleShape highlightBox;

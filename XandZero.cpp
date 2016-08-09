@@ -3,9 +3,9 @@
 //
 
 #include "XandZero.h"
-#include "Exceptions.h"
 
 XandZero::XandZero(int x,int y,sf::RenderWindow& windowRef,sf::Font& fnt) : sizeX{x},sizeY{y},font{fnt},winRef{windowRef} {
+
 
     arrSize=9;
 
@@ -43,22 +43,22 @@ void XandZero::HandleEvent(sf::Event& evt){
         if (evt.type == sf::Event::KeyReleased) {
             switch (evt.key.code) {
                 case sf::Keyboard::Right :
-                    if((pozX+moveSizeX)<(sizeX-100)){
+                    if ((pozX + moveSizeX) < (sizeX - 100)) {
                         highlightBox.move(moveSizeX, 0);
                     }
                     break;
                 case sf::Keyboard::Down :
-                    if((pozY + moveSizeY) < (sizeY - 100)){
+                    if ((pozY + moveSizeY) < (sizeY - 100)) {
                         highlightBox.move(0, moveSizeY);
                     }
                     break;
                 case sf::Keyboard::Left :
-                    if((pozX-moveSizeX)>0){
+                    if ((pozX - moveSizeX) > 0) {
                         highlightBox.move(-moveSizeX, 0);
                     }
                     break;
                 case sf::Keyboard::Up :
-                    if((pozY-moveSizeY)>0){
+                    if ((pozY - moveSizeY) > 0) {
                         highlightBox.move(0, -moveSizeY);
                     }
                     break;
@@ -66,16 +66,19 @@ void XandZero::HandleEvent(sf::Event& evt){
                     xTxt[position].setString("X");
                     xTxt[position].setColor(sf::Color::Blue);
                     break;
-                case sf::Keyboard::Numpad0 : case sf::Keyboard::Num0 : case sf::Keyboard::O :
+                case sf::Keyboard::Numpad0 :
+                case sf::Keyboard::Num0 :
+                case sf::Keyboard::O :
                     xTxt[position].setString("0");
                     xTxt[position].setColor(sf::Color::Red);
+                    break;
+                case sf::Keyboard::Escape :
+                case sf::Keyboard::P :
                     break;
                 default:
                     highlightBox.setPosition(4, 4);
                     break;
             }
-        } else if (evt.type == sf::Event::KeyReleased && evt.key.code == sf::Keyboard::R) {
-            highlightBox.setPosition(4, 4);
         }
 }
 
@@ -87,7 +90,7 @@ for(auto &text : xTxt){
 }
 
 int XandZero::UpdatePosition(sf::Vector2f smVct){
-    if(     smVct.x==4.f                      && smVct.y==4.f)
+    if     (smVct.x==4.f                      && smVct.y==4.f)
         return 0;
     else if(smVct.x==(4.f+((float)sizeX/3))   && smVct.y==4.f)
         return 1;
@@ -105,5 +108,37 @@ int XandZero::UpdatePosition(sf::Vector2f smVct){
         return 7;
     else if(smVct.x==(4.f+((float)2*sizeX/3)) && smVct.y==(4.f +(float)2*sizeY/3) )
         return 8;
-    else throw Exceptions("That was unexpected!!! (XandZero.cpp)",108);
+    else throw Exceptions("That was unexpected!!! (XandZero.cpp)",109);
+}
+
+WinCondition XandZero::CheckWinLogic(){ //incomplete
+
+    //init
+    bool firstTimeInit{false};
+    std::vector<std::string> whatIsDrawn;
+
+    if(!firstTimeInit) {
+        for (const auto &txt : xTxt) {
+            whatIsDrawn.push_back(txt.getString());
+        }
+        if(whatIsDrawn.size()==xTxt.size())
+            firstTimeInit=true;
+        else throw Exceptions("Win condition vector is not the same size as vector of <sf::Text>",125);
+    } else {
+        for(unsigned int it=0;it<whatIsDrawn.size();it++){
+            whatIsDrawn[it]=xTxt[it].getString();
+        }
+    }
+
+    //check condition
+
+
+
+
+
+
+
+
+
+
 }
