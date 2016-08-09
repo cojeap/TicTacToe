@@ -123,7 +123,7 @@ WinCondition XandZero::CheckWinLogic(){ //incomplete
         }
         if(whatIsDrawn.size()==xTxt.size())
             firstTimeInit=true;
-        else throw Exceptions("Win condition vector is not the same size as vector of <sf::Text>",125);
+        else throw Exceptions("Win condition vector is not the same size as vector of <sf::Text>",126);
     } else {
         for(unsigned int it=0;it<whatIsDrawn.size();it++){
             whatIsDrawn[it]=xTxt[it].getString();
@@ -134,11 +134,23 @@ WinCondition XandZero::CheckWinLogic(){ //incomplete
 
 
 
+/*
+    //debugg
+    condition.condition=true;
+    condition.winTypeText=WinType::winPlayerBlue;
+    //end debugg
+*/
 
 
+    return condition;
 
+}
 
-
-
-
+void XandZero::Reset() {
+    for(unsigned int it=0;it<arrSize;++it){
+        xTxt.push_back(sf::Text("E",font));
+    }
+    for(unsigned int it=0;it<arrSize;++it) {
+        xTxt[it].setColor(sf::Color::Transparent);
+    }
 }

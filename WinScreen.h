@@ -17,7 +17,6 @@ public:
     WinType GetWinType();
     bool pause;
 private:
-    void ReInitialise(WinType wType);
     sf::Vector2f winSize;
     WinType winType;
     sf::RenderWindow& win;

@@ -47,13 +47,6 @@ void WinScreen::Draw() {
 
 void WinScreen::SetWinType(WinType wType) {
     winType = wType;
-
-    ReInitialise(wType);
-
-}
-
-void WinScreen::ReInitialise(WinType wType){
-    winType=wType;
     switch(wType){
         case WinType::winPlayerBlue :
             winText.setColor(sf::Color::Blue);
@@ -73,6 +66,7 @@ void WinScreen::ReInitialise(WinType wType){
             break;
     }
 }
+
 
 void WinScreen::HandleEvent(sf::Event &evt) { //incomplete
 

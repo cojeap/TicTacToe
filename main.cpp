@@ -71,15 +71,13 @@ int main() {
                             window.close();
                         if(!winPauseScreen.pause) {
                             if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Escape)) {
-                                log.w("Escape pressed");
                                 winPauseScreen.SetWinType(WinType::playing);
                                 winPauseScreen.pause = true;
-                                log.w("Pause true");
                             }
                         }
                         winPauseScreen.HandleEvent(event);
                         textBox.HandleEvent(event);
-                       //condition = textBox.CheckWinLogic();
+                       condition = textBox.CheckWinLogic();
                     }
 
                     if(!winPauseScreen.pause) {
@@ -93,7 +91,6 @@ int main() {
                         window.display();
                     } else {
 
-                        log.w("game pause");
                         window.clear(sf::Color::Black);
                         winPauseScreen.Draw();
                         window.display();
@@ -154,7 +151,7 @@ int main() {
                     window.display();
 
 
-                } else throw Exceptions("Unknown condition type! (main.cpp)",127);
+                } else throw Exceptions("Unknown condition type! (main.cpp)",154);
             }
     }
     catch(Exceptions& e){

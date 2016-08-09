@@ -13,6 +13,7 @@ enum class WinType{
 
 struct WinCondition{
     WinCondition() : condition{false},winTypeText{WinType::playing} {};
+
     WinCondition(WinType type){
         if(type==WinType::winPlayerBlue)
             condition= true;
@@ -22,8 +23,9 @@ struct WinCondition{
             condition= true;
         else if(type==WinType::playing)
             condition=false;
-        else throw Exceptions("Win type is not valid! (WinCondition.h)",25);
+        else throw Exceptions("Win type is not valid! (WinCondition.h)",26);
     };
+
     bool condition;
     WinType winTypeText;
 

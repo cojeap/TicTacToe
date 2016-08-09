@@ -17,6 +17,7 @@ class XandZero {
 public:
     XandZero(int x,int y, sf::RenderWindow& windowRef,sf::Font& fnt);
     ~XandZero()=default;
+    void Reset();
     void HandleEvent(sf::Event& evt);
     void DrawHighlight();
     void Draw();
