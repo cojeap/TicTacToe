@@ -32,6 +32,7 @@ private:
     sf::RenderWindow& winRef;
     sf::Font font;
     std::vector<sf::Text> xTxt;
+    sf::Vector2f originPoz;
 
 };
 

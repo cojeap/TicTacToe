@@ -6,11 +6,13 @@
 
 XandZero::XandZero(int x,int y,sf::RenderWindow& windowRef,sf::Font& fnt) : sizeX{x},sizeY{y},font{fnt},winRef{windowRef} {
 
+    originPoz.x=4;
+    originPoz.y=4;
 
-    arrSize=9;
+    arrSize=9; // force  9 for the TicTacToe grid.
 
     highlightBox.setFillColor(sf::Color::Transparent);
-    highlightBox.setPosition(4,4);
+    highlightBox.setPosition(originPoz);
     highlightBox.setOutlineColor(sf::Color::Green);
     highlightBox.setOutlineThickness(4);
     highlightBox.setSize(sf::Vector2f(sizeX/3-9,sizeY/3-9));
@@ -30,12 +32,14 @@ void XandZero::DrawHighlight(){
 }
 
 void XandZero::HandleEvent(sf::Event& evt){
+
     float moveSizeX{(float)sizeX/3};
     float moveSizeY{(float)sizeY/3};
     float pozX = highlightBox.getPosition().x;
     float pozY = highlightBox.getPosition().y;
 
     sf::Vector2f smVct=highlightBox.getPosition();
+
     int position=UpdatePosition(smVct);
     xTxt[position].setPosition(smVct);
     xTxt[position].move(17,-55);    //place it properly in the box
@@ -63,20 +67,21 @@ void XandZero::HandleEvent(sf::Event& evt){
                     }
                     break;
                 case sf::Keyboard::X :
-                    xTxt[position].setString("X");
+                    xTxt[position].setString("X"); //playerBlue
                     xTxt[position].setColor(sf::Color::Blue);
                     break;
                 case sf::Keyboard::Numpad0 :
                 case sf::Keyboard::Num0 :
                 case sf::Keyboard::O :
-                    xTxt[position].setString("0");
+                    xTxt[position].setString("0"); //playerRed
                     xTxt[position].setColor(sf::Color::Red);
                     break;
                 case sf::Keyboard::Escape :
-                case sf::Keyboard::P :
+                case sf::Keyboard::BackSpace :
+                case sf::Keyboard::R :
                     break;
                 default:
-                    highlightBox.setPosition(4, 4);
+                    highlightBox.setPosition(originPoz);
                     break;
             }
         }
@@ -90,23 +95,23 @@ for(auto &text : xTxt){
 }
 
 int XandZero::UpdatePosition(sf::Vector2f smVct){
-    if     (smVct.x==4.f                      && smVct.y==4.f)
+    if     (smVct.x==originPoz.x                    && smVct.y==originPoz.y)
         return 0;
-    else if(smVct.x==(4.f+((float)sizeX/3))   && smVct.y==4.f)
+    else if(smVct.x==(originPoz.x+((float)sizeX/3))   && smVct.y==originPoz.y)
         return 1;
-    else if(smVct.x==(4.f+((float)2*sizeX/3)) && smVct.y==4.f)
+    else if(smVct.x==(originPoz.x+((float)2*sizeX/3)) && smVct.y==originPoz.y)
         return 2;
-    else if(smVct.x==4.f                      && smVct.y==(4.f +(float)sizeY/3) )
+    else if(smVct.x==originPoz.x                      && smVct.y==(originPoz.y +(float)sizeY/3) )
         return 3;
-    else if(smVct.x==(4.f+((float)sizeX/3))   && smVct.y==(4.f +(float)sizeY/3) )
+    else if(smVct.x==(originPoz.x+((float)sizeX/3))   && smVct.y==(originPoz.y +(float)sizeY/3) )
         return 4;
-    else if(smVct.x==(4.f+((float)2*sizeX/3)) && smVct.y==(4.f +(float)sizeY/3) )
+    else if(smVct.x==(originPoz.x+((float)2*sizeX/3)) && smVct.y==(originPoz.y +(float)sizeY/3) )
         return 5;
-    else if(smVct.x==4.f                      && smVct.y==(4.f +(float)2*sizeY/3) )
+    else if(smVct.x==originPoz.x                      && smVct.y==(originPoz.y +(float)2*sizeY/3) )
         return 6;
-    else if(smVct.x==(4.f+((float)sizeX/3))   && smVct.y==(4.f +(float)2*sizeY/3) )
+    else if(smVct.x==(originPoz.x+((float)sizeX/3))   && smVct.y==(originPoz.y +(float)2*sizeY/3) )
         return 7;
-    else if(smVct.x==(4.f+((float)2*sizeX/3)) && smVct.y==(4.f +(float)2*sizeY/3) )
+    else if(smVct.x==(originPoz.x+((float)2*sizeX/3)) && smVct.y==(originPoz.y +(float)2*sizeY/3) )
         return 8;
     else throw Exceptions("That was unexpected!!! (XandZero.cpp)",109);
 }
@@ -132,6 +137,15 @@ WinCondition XandZero::CheckWinLogic(){ //incomplete
 
     //check condition
 
+    //playerBlue X
+    if(whatIsDrawn[0]=="X"&&whatIsDrawn[1]=="X"&&whatIsDrawn[2]=="X"){
+        condition.condition=true;
+        condition.winTypeText=WinType::winPlayerBlue;
+    }
+    else if(whatIsDrawn[0]=="0"&&whatIsDrawn[1]=="0"&&whatIsDrawn[2]=="0"){
+        condition.condition=true;
+        condition.winTypeText=WinType::winPlayerRed;
+    }
 
 
 /*
@@ -153,4 +167,6 @@ void XandZero::Reset() {
     for(unsigned int it=0;it<arrSize;++it) {
         xTxt[it].setColor(sf::Color::Transparent);
     }
+    condition.condition=false;
+    condition.winTypeText=WinType::playing;
 }

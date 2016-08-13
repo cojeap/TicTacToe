@@ -45,120 +45,133 @@ int main() {
         background.setSize(sizes);
         background.setFillColor(sf::Color::White);
 
+        //goto here to reset
+        reset :
+
+
         //grid
         Grid cutie{sizeX, sizeY, window};
         XandZero textBox{sizeX, sizeY, window, someFont};
 
         WinCondition condition;
-        WinScreen winPauseScreen{WinType::playing,sizes,window,someFont};
+        WinScreen winPauseScreen{WinType::playing, sizes, window, someFont};
 
         log.w("initialising done");
 
 
         //game loop
 
-            while (window.isOpen()) {
+        while (window.isOpen()) {
 
-                sf::Event event;
+            sf::Event event;
 
-
-                if (!condition.condition) {
-
-                    while (window.pollEvent(event)) {
-                        if (event.type == sf::Event::Closed)
-                            window.close();
-                        if((event.type == sf::Event::KeyReleased) && (event.key.code == sf::Keyboard::F4))
-                            window.close();
-                        if(!winPauseScreen.pause) {
-                            if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Escape)) {
-                                winPauseScreen.SetWinType(WinType::playing);
-                                winPauseScreen.pause = true;
-                            }
-                        }
-                        winPauseScreen.HandleEvent(event);
-                        textBox.HandleEvent(event);
-                       condition = textBox.CheckWinLogic();
-                    }
-
-                    if(!winPauseScreen.pause) {
-                        window.clear(sf::Color::Black);
-                        //draw
-                        window.draw(background);
-                        cutie.draw();
-                        textBox.DrawHighlight();
-                        textBox.Draw();
-                        //display
-                        window.display();
-                    } else {
-
-                        window.clear(sf::Color::Black);
-                        winPauseScreen.Draw();
-                        window.display();
-                    }
-
-                } else if (condition.winTypeText == WinType::tie) {
-
-                    if(winPauseScreen.GetWinType()!=WinType::tie)
-                        winPauseScreen.SetWinType(WinType::tie);
-
-                    while (window.pollEvent(event)) {
-                        if (event.type == sf::Event::Closed)
-                            window.close();
-                        if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::F4))
-                            window.close();
-                    }
-
-                    window.clear(sf::Color::White);
-
-                    winPauseScreen.Draw();
-
-                    window.display();
-
-                } else if (condition.winTypeText == WinType::winPlayerRed) {
-
-                    if(winPauseScreen.GetWinType()!=WinType::winPlayerRed)
-                        winPauseScreen.SetWinType(WinType::winPlayerRed);
-
-                    while (window.pollEvent(event)) {
-                        if (event.type == sf::Event::Closed)
-                            window.close();
-                        if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::F4))
-                            window.close();
-                    }
-
-                    window.clear(sf::Color::White);
-
-                    winPauseScreen.Draw();
-
-                    window.display();
-
-                } else if (condition.winTypeText == WinType::winPlayerBlue) {
-
-                    if(winPauseScreen.GetWinType()!=WinType::winPlayerBlue)
-                        winPauseScreen.SetWinType(WinType::winPlayerBlue);
-
-                    while (window.pollEvent(event)) {
-                        if (event.type == sf::Event::Closed)
-                            window.close();
-                        if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::F4))
-                            window.close();
-                    }
-
-                    window.clear(sf::Color::White);
-
-                    winPauseScreen.Draw();
-
-                    window.display();
-
-
-                } else throw Exceptions("Unknown condition type! (main.cpp)",154);
+            if (winPauseScreen.playAgain) {
+                    condition.condition = false;
+                    condition.winTypeText = WinType::playing;
+                    textBox.Reset();
+                    winPauseScreen.Reset();
             }
+
+            if (!condition.condition) {
+
+                while (window.pollEvent(event)) {
+                    if (event.type == sf::Event::Closed)
+                        window.close();
+                    if ((event.type == sf::Event::KeyReleased) && (event.key.code == sf::Keyboard::F4))
+                        window.close();
+                    if (!winPauseScreen.pause) {
+                        if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Escape)) {
+                            winPauseScreen.SetWinType(WinType::playing);
+                            winPauseScreen.pause = true;
+                        }
+                    }
+                    winPauseScreen.HandleEvent(event);
+                    textBox.HandleEvent(event);
+                    condition = textBox.CheckWinLogic();
+                }
+
+                if (!winPauseScreen.pause) {
+                    window.clear(sf::Color::Black);
+                    //draw
+                    window.draw(background);
+                    cutie.draw();
+                    textBox.DrawHighlight();
+                    textBox.Draw();
+                    //display
+                    window.display();
+                } else {
+                    window.clear(sf::Color::Black);
+                    winPauseScreen.Draw();
+                    window.display();
+                }
+
+            } else if (condition.winTypeText == WinType::tie) {
+
+                if (winPauseScreen.GetWinType() != WinType::tie)
+                    winPauseScreen.SetWinType(WinType::tie);
+
+                while (window.pollEvent(event)) {
+                    if (event.type == sf::Event::Closed)
+                        window.close();
+                    if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::F4))
+                        window.close();
+                    winPauseScreen.HandleEvent(event);
+                }
+
+                window.clear(sf::Color::White);
+
+                winPauseScreen.Draw();
+
+                window.display();
+
+            } else if (condition.winTypeText == WinType::winPlayerRed) {
+
+                if (winPauseScreen.GetWinType() != WinType::winPlayerRed)
+                    winPauseScreen.SetWinType(WinType::winPlayerRed);
+
+                while (window.pollEvent(event)) {
+                    if (event.type == sf::Event::Closed)
+                        window.close();
+                    if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::F4))
+                        window.close();
+                    winPauseScreen.HandleEvent(event);
+                }
+
+                window.clear(sf::Color::White);
+
+                winPauseScreen.Draw();
+
+                window.display();
+
+            } else if (condition.winTypeText == WinType::winPlayerBlue) {
+
+                if (winPauseScreen.GetWinType() != WinType::winPlayerBlue)
+                    winPauseScreen.SetWinType(WinType::winPlayerBlue);
+
+                while (window.pollEvent(event)) {
+                    if (event.type == sf::Event::Closed)
+                        window.close();
+                    if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::F4))
+                        window.close();
+                    winPauseScreen.HandleEvent(event);
+                }
+
+                window.clear(sf::Color::White);
+
+                winPauseScreen.Draw();
+
+                window.display();
+
+
+            }
+
+        }
     }
-    catch(Exceptions& e){
+    catch (Exceptions &e) {
         e.ShowExcept();
     }
-    catch(...){
-        std::cerr<<"Unknown Problem!\t0"<<std::endl;
+    catch (...) {
+        std::cerr << "Unknown Problem!\t0" << std::endl;
     }
 
     return 0;
