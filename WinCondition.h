@@ -29,6 +29,10 @@ struct WinCondition{
     bool condition;
     WinType winTypeText;
 
+    void Reset() {
+        condition=false;
+        winTypeText=WinType::playing;
+    };
 };
 
 

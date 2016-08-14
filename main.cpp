@@ -45,10 +45,6 @@ int main() {
         background.setSize(sizes);
         background.setFillColor(sf::Color::White);
 
-        //goto here to reset
-        reset :
-
-
         //grid
         Grid cutie{sizeX, sizeY, window};
         XandZero textBox{sizeX, sizeY, window, someFont};
@@ -65,11 +61,13 @@ int main() {
 
             sf::Event event;
 
-            if (winPauseScreen.playAgain) {
-                    condition.condition = false;
-                    condition.winTypeText = WinType::playing;
+            if ((winPauseScreen.GetWinType() != WinType::playing) && (!winPauseScreen.pause)) {
+                if (winPauseScreen.playAgain) {
+                    log.w("play again true");
+                    condition.Reset();
                     textBox.Reset();
                     winPauseScreen.Reset();
+                }
             }
 
             if (!condition.condition) {
@@ -164,6 +162,7 @@ int main() {
 
 
             }
+
 
         }
     }
