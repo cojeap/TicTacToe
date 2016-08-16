@@ -9,6 +9,9 @@
 
 #include "GameObj.h"
 
+#include "Score.h"
+
+
 class TicTacToe {
 public:
     TicTacToe();
@@ -16,10 +19,14 @@ public:
     void Run();
     void Replay();
 private:
-
+    void UpdateScore();
+    int scorePlayerRed;
+    int scorePlayerBlue;
+    int scoreTie;
     sf::Vector2f winSize;
     sf::RenderWindow* window;
     GameObj* game;
+    Score* scoreBoard;
 };
 
 

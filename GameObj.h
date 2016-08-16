@@ -27,13 +27,18 @@ private:
     sf::RectangleShape background;
 
     WinCondition gameState;
+
+
 public:
     GameObj(sf::Vector2f sizes, sf::RenderWindow& winRef);
     ~GameObj();
+    WinType  getWinType() const;
+    bool isPlayig();
     bool isReplayAllowed();
     void HandleEvent(sf::Event& e);
     void CheckWinType();
     void Draw();
+    sf::Font& getFont();
 };
 
 

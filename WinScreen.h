@@ -11,13 +11,12 @@
 class WinScreen{
 public:
     WinScreen(WinType wType, sf::Vector2f wSize, sf::RenderWindow& wRef,sf::Font& rFont);
+    ~WinScreen()= default;
     void Draw();
     void SetWinType(WinType wType);
     void HandleEvent(sf::Event& evt);
-    bool pause;
-
     WinType GetWinType();
-
+    bool pause;
 private:
     sf::Vector2f winSize;
     WinType winType;

@@ -5,7 +5,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/build")
-set(SOURCE_FILES main.cpp Grid.cpp Grid.h Exceptions.h XandZero.cpp XandZero.h .idea/pozition.cpp .idea/pozition.h include/WinLogic.cpp include/WinLogic.h WinScreen.cpp WinScreen.h WinCondition.h Logger.cpp Logger.h TicTacToe.cpp TicTacToe.h GameObj.cpp GameObj.h)
+set(SOURCE_FILES main.cpp Grid.cpp Grid.h Exceptions.h XandZero.cpp XandZero.h .idea/pozition.cpp .idea/pozition.h include/WinLogic.cpp include/WinLogic.h WinScreen.cpp WinScreen.h WinCondition.h Logger.cpp Logger.h TicTacToe.cpp TicTacToe.h GameObj.cpp GameObj.h Score.h Score.cpp)
 add_executable(TicTacToe ${SOURCE_FILES})
 
 # Detect and add SFML

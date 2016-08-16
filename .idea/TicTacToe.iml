@@ -13,16 +13,18 @@
       <sourceFolder url="file://$MODULE_DIR$/share/SFML/cmake/Modules/FindSFML.cmake" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/WinCondition.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/WinScreen.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/TicTacToe.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/GameObj.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/TicTacToe.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/TicTacToe.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Logger.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/WinScreen.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Grid.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/main.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/TicTacToe.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Grid.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Logger.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Score.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Exceptions.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/WinScreen.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Score.h" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">

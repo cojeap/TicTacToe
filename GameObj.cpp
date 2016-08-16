@@ -53,8 +53,6 @@ void GameObj::CheckWinType() {
 
 void GameObj::Draw() {
 
-    wRef.clear();
-
     if (!gameState.gameEnded) {
         if (!this->winPauseScreen->pause) {
             wRef.draw(background);
@@ -81,12 +79,24 @@ void GameObj::Draw() {
             default :
                 break;
         }
+
         this->winPauseScreen->Draw();
     }
 
-    wRef.display();
 }
 
 bool GameObj::isReplayAllowed() {
     return this->winPauseScreen->GetWinType() != WinType::playing;
+}
+
+bool GameObj::isPlayig() {
+    return !this->gameState.gameEnded;
+}
+
+WinType GameObj::getWinType() const{
+    return gameState.winTypeText;
+}
+
+sf::Font &GameObj::getFont() {
+    return textFont;
 }
