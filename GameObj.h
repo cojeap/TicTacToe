@@ -30,6 +30,7 @@ private:
 public:
     GameObj(sf::Vector2f sizes, sf::RenderWindow& winRef);
     ~GameObj();
+    bool isReplayAllowed();
     void HandleEvent(sf::Event& e);
     void CheckWinType();
     void Draw();

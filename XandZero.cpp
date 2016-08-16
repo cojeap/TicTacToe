@@ -5,7 +5,7 @@
 #include "XandZero.h"
 
 XandZero::XandZero(sf::Vector2f sizes, sf::RenderWindow &windowRef, sf::Font &fnt) : size{sizes}, font{fnt},
-                                                                               winRef{windowRef} {
+                                                                                     winRef{windowRef} {
 
     originPoz.x = 4;
     originPoz.y = 4;
@@ -34,8 +34,8 @@ void XandZero::DrawHighlight() {
 
 void XandZero::HandleEvent(sf::Event &evt) {
 
-    float moveSizeX{ size.x / 3};
-    float moveSizeY{ size.y / 3};
+    float moveSizeX{size.x / 3};
+    float moveSizeY{size.y / 3};
     float pozX = highlightBox.getPosition().x;
     float pozY = highlightBox.getPosition().y;
 
@@ -102,21 +102,21 @@ void XandZero::Draw() {
 int XandZero::UpdatePosition(sf::Vector2f smVct) {
     if (smVct.x == originPoz.x && smVct.y == originPoz.y)
         return 0;
-    else if (smVct.x == (originPoz.x + ( size.x / 3)) && smVct.y == originPoz.y)
+    else if (smVct.x == (originPoz.x + (size.x / 3)) && smVct.y == originPoz.y)
         return 1;
-    else if (smVct.x == (originPoz.x + ( 2 * size.x / 3)) && smVct.y == originPoz.y)
+    else if (smVct.x == (originPoz.x + (2 * size.x / 3)) && smVct.y == originPoz.y)
         return 2;
-    else if (smVct.x == originPoz.x && smVct.y == (originPoz.y +  size.y / 3))
+    else if (smVct.x == originPoz.x && smVct.y == (originPoz.y + size.y / 3))
         return 3;
-    else if (smVct.x == (originPoz.x + ( size.x / 3)) && smVct.y == (originPoz.y +  size.y / 3))
+    else if (smVct.x == (originPoz.x + (size.x / 3)) && smVct.y == (originPoz.y + size.y / 3))
         return 4;
-    else if (smVct.x == (originPoz.x + ( 2 * size.x / 3)) && smVct.y == (originPoz.y +  size.y / 3))
+    else if (smVct.x == (originPoz.x + (2 * size.x / 3)) && smVct.y == (originPoz.y + size.y / 3))
         return 5;
-    else if (smVct.x == originPoz.x && smVct.y == (originPoz.y +  2 * size.y / 3))
+    else if (smVct.x == originPoz.x && smVct.y == (originPoz.y + 2 * size.y / 3))
         return 6;
-    else if (smVct.x == (originPoz.x + ( size.x / 3)) && smVct.y == (originPoz.y +  2 * size.y / 3))
+    else if (smVct.x == (originPoz.x + (size.x / 3)) && smVct.y == (originPoz.y + 2 * size.y / 3))
         return 7;
-    else if (smVct.x == (originPoz.x + (2 * size.x / 3)) && smVct.y == (originPoz.y +  2 * size.y / 3))
+    else if (smVct.x == (originPoz.x + (2 * size.x / 3)) && smVct.y == (originPoz.y + 2 * size.y / 3))
         return 8;
     else throw Exceptions("That was unexpected!!! (XandZero.cpp)", 120);
 }
@@ -124,31 +124,57 @@ int XandZero::UpdatePosition(sf::Vector2f smVct) {
 WinCondition XandZero::CheckWinLogic() { //incomplete
 
     //init
-    bool firstTimeInit{false};
     std::vector<std::string> box;
 
-    if (!firstTimeInit) {
-        for (const auto &txt : xTxt) {
-            box.push_back(txt.getString());
-        }
-        if (box.size() == xTxt.size())
-            firstTimeInit = true;
-        else throw Exceptions("Win condition vector is not the same size as vector of <sf::Text>", 126);
-    } else {
-        for (unsigned int it = 0; it < box.size(); it++) {
-            box[it] = xTxt[it].getString();
-        }
+    for (auto &txt : xTxt) {
+        box.push_back(txt.getString());
     }
 
-    //check condition
+    int numberForTie{0};
 
-    //playerBlue X
-    if (box[0] == "X" && box[1] == "X" && box[2] == "X") {
+    for (auto txt : box) {
+        if (txt == "X" || txt == "0")
+            numberForTie += 1;
+    }
+
+    if (numberForTie == 8) //if only 1 space is empty;
+        condition.SetWinType(WinType::tie);
+
+    //playerBlue X, playerRed 0
+
+    if (box[2] == "X" && box[4] == "X" && box[6] == "X") {
         condition.SetWinType(WinType::winPlayerBlue);
     }
-    else if (box[0] == "0" && box[1] == "0" && box[2] == "0") {
+    else if (box[2] == "0" && box[4] == "0" && box[6] == "0") {
         condition.SetWinType(WinType::winPlayerRed);
     }
+    else {
+
+        for (unsigned int i = 0; i < arrSize - 3; i += 3) {
+            if (box[i] == "X" && box[i + 1] == "X" && box[i + 2] == "X") {
+                condition.SetWinType(WinType::winPlayerBlue);
+            }
+            else if (box[i] == "0" && box[i + 1] == "0" && box[i + 2] == "0") {
+                condition.SetWinType(WinType::winPlayerRed);
+            }
+        }
+
+        for (unsigned int i = 0; i < 3; i++) {
+            if (box[i] == "X" && box[i + 3] == "X" && box[i + 6] == "X") {
+                condition.SetWinType(WinType::winPlayerBlue);
+            } else if (box[i] == "0" && box[i + 3] == "0" && box[i + 6] == "0") {
+                condition.SetWinType(WinType::winPlayerRed);
+            }
+        }
+
+        if (box[0] == "X" && box[4] == "X" && box[8] == "X") {
+            condition.SetWinType(WinType::winPlayerBlue);
+        } else if (box[0] == "0" && box[4] == "0" && box[8] == "0") {
+            condition.SetWinType(WinType::winPlayerRed);
+        }
+
+    }
+
 
     return condition;
 

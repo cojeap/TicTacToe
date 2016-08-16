@@ -41,7 +41,9 @@ void GameObj::HandleEvent(sf::Event &e) { //incomplete
         }
     }
     this->winPauseScreen->HandleEvent(e);
-    this->textBox->HandleEvent(e);
+
+    if(!winPauseScreen->pause)
+        this->textBox->HandleEvent(e);
 }
 
 void GameObj::CheckWinType() {
@@ -83,4 +85,8 @@ void GameObj::Draw() {
     }
 
     wRef.display();
+}
+
+bool GameObj::isReplayAllowed() {
+    return this->winPauseScreen->GetWinType() != WinType::playing;
 }

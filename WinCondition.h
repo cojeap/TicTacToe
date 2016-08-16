@@ -27,6 +27,7 @@ struct WinCondition{
     };
 
     void SetWinType(WinType type){
+        winTypeText=type;
         if(type==WinType::winPlayerBlue)
             gameEnded= true;
         else if (type==WinType::winPlayerRed)
