@@ -12,27 +12,33 @@ enum class WinType{
 };
 
 struct WinCondition{
-    WinCondition() : condition{false},winTypeText{WinType::playing} {};
+    WinCondition() : gameEnded{false},winTypeText{WinType::playing} {};
 
     WinCondition(WinType type){
         if(type==WinType::winPlayerBlue)
-            condition= true;
+            gameEnded= true;
         else if (type==WinType::winPlayerRed)
-            condition=true;
+            gameEnded=true;
         else if(type==WinType::tie)
-            condition= true;
+            gameEnded= true;
         else if(type==WinType::playing)
-            condition=false;
+            gameEnded=false;
         else throw Exceptions("Win type is not valid! (WinCondition.h)",26);
     };
 
-    bool condition;
-    WinType winTypeText;
-
-    void Reset() {
-        condition=false;
-        winTypeText=WinType::playing;
+    void SetWinType(WinType type){
+        if(type==WinType::winPlayerBlue)
+            gameEnded= true;
+        else if (type==WinType::winPlayerRed)
+            gameEnded=true;
+        else if(type==WinType::tie)
+            gameEnded= true;
+        else if(type==WinType::playing)
+            gameEnded=false;
+        else throw Exceptions("Win type is not valid! (WinCondition.h)",37);
     };
+    bool gameEnded;
+    WinType winTypeText;
 };
 
 

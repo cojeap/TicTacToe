@@ -5,16 +5,16 @@
 #include "Grid.h"
 
 
-Grid::Grid(int x, int y, sf::RenderWindow &windowRef) : sizeX{x}, sizeY{y}, winRef{windowRef} {
+Grid::Grid(sf::Vector2f sizes, sf::RenderWindow& windowRef) : size{sizes}, winRef{windowRef} {
 
     pointSize = 9; // force  9 for the TicTacToe grid.
 
-    sf::Vector2f sizes{(float) sizeX / 3, (float) sizeY / 3};
+    sf::Vector2f reducedSizes(size.x / 3, size.y / 3);
 
     boxes = new sf::RectangleShape[pointSize];
 
     for (int i = 0; i < pointSize; i++) {
-        boxes[i].setSize(sizes);
+        boxes[i].setSize(reducedSizes);
         boxes[i].setFillColor(sf::Color::Transparent);
         boxes[i].setOutlineColor(sf::Color::Blue);
         boxes[i].setOutlineThickness(4);
@@ -36,8 +36,8 @@ void Grid::draw() {
 
 void Grid::SetPositions(sf::RectangleShape &box, int i) {
 
-    float fx = sizeX;
-    float fy = sizeY;
+    float fx = size.x;
+    float fy = size.y;
 
     switch (i) {
         case 0:

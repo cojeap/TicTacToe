@@ -10,7 +10,6 @@ WinScreen::WinScreen(WinType wType, sf::Vector2f wSize, sf::RenderWindow &wRef, 
                                                                                                    refFont{rFont} {
 
     pause = false;
-    playAgain = false;
 
     background.setSize(winSize);
     background.setFillColor(sf::Color::White);
@@ -18,7 +17,6 @@ WinScreen::WinScreen(WinType wType, sf::Vector2f wSize, sf::RenderWindow &wRef, 
     winText.setFont(refFont);
     winText.setPosition((60), (winSize.y / 2));
     winText.setCharacterSize(50);
-
 
     switch (winType) {
         case WinType::winPlayerBlue :
@@ -75,19 +73,12 @@ void WinScreen::HandleEvent(sf::Event &evt) { //incomplete
 
     if (evt.type == sf::Event::KeyReleased) {
         switch (evt.key.code) {
-            case sf::Keyboard::F4 :
-                win.clear(sf::Color::Black);
-                win.display();
-                win.close();
-                break;
             case sf::Keyboard::BackSpace :
                 if (winType == WinType::playing)
                     pause = false;
                 break;
-            case sf::Keyboard::T :
-                break;
             case sf::Keyboard::R :
-                playAgain = true;
+                break;
             default:
                 break;
 
@@ -98,12 +89,4 @@ void WinScreen::HandleEvent(sf::Event &evt) { //incomplete
 
 WinType WinScreen::GetWinType() {
     return winType;
-}
-
-void WinScreen::Reset() {
-    pause = false;
-    playAgain = false;
-    winType = WinType::playing;
-    winText.setColor(sf::Color::Black);
-    winText.setString("Pause");
 }

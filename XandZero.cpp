@@ -4,7 +4,7 @@
 
 #include "XandZero.h"
 
-XandZero::XandZero(int x, int y, sf::RenderWindow &windowRef, sf::Font &fnt) : sizeX{x}, sizeY{y}, font{fnt},
+XandZero::XandZero(sf::Vector2f sizes, sf::RenderWindow &windowRef, sf::Font &fnt) : size{sizes}, font{fnt},
                                                                                winRef{windowRef} {
 
     originPoz.x = 4;
@@ -16,7 +16,7 @@ XandZero::XandZero(int x, int y, sf::RenderWindow &windowRef, sf::Font &fnt) : s
     highlightBox.setPosition(originPoz);
     highlightBox.setOutlineColor(sf::Color::Green);
     highlightBox.setOutlineThickness(4);
-    highlightBox.setSize(sf::Vector2f(sizeX / 3 - 9, sizeY / 3 - 9));
+    highlightBox.setSize(sf::Vector2f(size.x / 3 - 9, size.y / 3 - 9));
 
     for (unsigned int it = 0; it < arrSize; ++it) {
         xTxt.push_back(sf::Text("E", font));
@@ -34,8 +34,8 @@ void XandZero::DrawHighlight() {
 
 void XandZero::HandleEvent(sf::Event &evt) {
 
-    float moveSizeX{(float) sizeX / 3};
-    float moveSizeY{(float) sizeY / 3};
+    float moveSizeX{ size.x / 3};
+    float moveSizeY{ size.y / 3};
     float pozX = highlightBox.getPosition().x;
     float pozY = highlightBox.getPosition().y;
 
@@ -48,12 +48,12 @@ void XandZero::HandleEvent(sf::Event &evt) {
     if (evt.type == sf::Event::KeyReleased) {
         switch (evt.key.code) {
             case sf::Keyboard::Right :
-                if ((pozX + moveSizeX) < (sizeX - 100)) {
+                if ((pozX + moveSizeX) < (size.x - 100)) {
                     highlightBox.move(moveSizeX, 0);
                 }
                 break;
             case sf::Keyboard::Down :
-                if ((pozY + moveSizeY) < (sizeY - 100)) {
+                if ((pozY + moveSizeY) < (size.y - 100)) {
                     highlightBox.move(0, moveSizeY);
                 }
                 break;
@@ -102,21 +102,21 @@ void XandZero::Draw() {
 int XandZero::UpdatePosition(sf::Vector2f smVct) {
     if (smVct.x == originPoz.x && smVct.y == originPoz.y)
         return 0;
-    else if (smVct.x == (originPoz.x + ((float) sizeX / 3)) && smVct.y == originPoz.y)
+    else if (smVct.x == (originPoz.x + ( size.x / 3)) && smVct.y == originPoz.y)
         return 1;
-    else if (smVct.x == (originPoz.x + ((float) 2 * sizeX / 3)) && smVct.y == originPoz.y)
+    else if (smVct.x == (originPoz.x + ( 2 * size.x / 3)) && smVct.y == originPoz.y)
         return 2;
-    else if (smVct.x == originPoz.x && smVct.y == (originPoz.y + (float) sizeY / 3))
+    else if (smVct.x == originPoz.x && smVct.y == (originPoz.y +  size.y / 3))
         return 3;
-    else if (smVct.x == (originPoz.x + ((float) sizeX / 3)) && smVct.y == (originPoz.y + (float) sizeY / 3))
+    else if (smVct.x == (originPoz.x + ( size.x / 3)) && smVct.y == (originPoz.y +  size.y / 3))
         return 4;
-    else if (smVct.x == (originPoz.x + ((float) 2 * sizeX / 3)) && smVct.y == (originPoz.y + (float) sizeY / 3))
+    else if (smVct.x == (originPoz.x + ( 2 * size.x / 3)) && smVct.y == (originPoz.y +  size.y / 3))
         return 5;
-    else if (smVct.x == originPoz.x && smVct.y == (originPoz.y + (float) 2 * sizeY / 3))
+    else if (smVct.x == originPoz.x && smVct.y == (originPoz.y +  2 * size.y / 3))
         return 6;
-    else if (smVct.x == (originPoz.x + ((float) sizeX / 3)) && smVct.y == (originPoz.y + (float) 2 * sizeY / 3))
+    else if (smVct.x == (originPoz.x + ( size.x / 3)) && smVct.y == (originPoz.y +  2 * size.y / 3))
         return 7;
-    else if (smVct.x == (originPoz.x + ((float) 2 * sizeX / 3)) && smVct.y == (originPoz.y + (float) 2 * sizeY / 3))
+    else if (smVct.x == (originPoz.x + (2 * size.x / 3)) && smVct.y == (originPoz.y +  2 * size.y / 3))
         return 8;
     else throw Exceptions("That was unexpected!!! (XandZero.cpp)", 120);
 }
@@ -125,46 +125,31 @@ WinCondition XandZero::CheckWinLogic() { //incomplete
 
     //init
     bool firstTimeInit{false};
-    std::vector<std::string> whatIsDrawn;
+    std::vector<std::string> box;
 
     if (!firstTimeInit) {
         for (const auto &txt : xTxt) {
-            whatIsDrawn.push_back(txt.getString());
+            box.push_back(txt.getString());
         }
-        if (whatIsDrawn.size() == xTxt.size())
+        if (box.size() == xTxt.size())
             firstTimeInit = true;
         else throw Exceptions("Win condition vector is not the same size as vector of <sf::Text>", 126);
     } else {
-        for (unsigned int it = 0; it < whatIsDrawn.size(); it++) {
-            whatIsDrawn[it] = xTxt[it].getString();
+        for (unsigned int it = 0; it < box.size(); it++) {
+            box[it] = xTxt[it].getString();
         }
     }
 
     //check condition
 
     //playerBlue X
-    if (whatIsDrawn[0] == "X" && whatIsDrawn[1] == "X" && whatIsDrawn[2] == "X") {
-        condition.condition = true;
-        condition.winTypeText = WinType::winPlayerBlue;
+    if (box[0] == "X" && box[1] == "X" && box[2] == "X") {
+        condition.SetWinType(WinType::winPlayerBlue);
     }
-    else if (whatIsDrawn[0] == "0" && whatIsDrawn[1] == "0" && whatIsDrawn[2] == "0") {
-        condition.condition = true;
-        condition.winTypeText = WinType::winPlayerRed;
+    else if (box[0] == "0" && box[1] == "0" && box[2] == "0") {
+        condition.SetWinType(WinType::winPlayerRed);
     }
 
     return condition;
 
-}
-
-void XandZero::Reset() {
-    for (unsigned int it = 0; it < arrSize; ++it) {
-        xTxt.push_back(sf::Text("E", font));
-    }
-    for (unsigned int it = 0; it < arrSize; ++it) {
-        xTxt[it].setColor(sf::Color::Transparent);
-    }
-    condition.condition = false;
-    condition.winTypeText = WinType::playing;
-
-    highlightBox.setPosition(originPoz);
 }

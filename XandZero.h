@@ -15,25 +15,22 @@
 
 class XandZero {
 public:
-    XandZero(int x,int y, sf::RenderWindow& windowRef,sf::Font& fnt);
+    XandZero(sf::Vector2f sizes, sf::RenderWindow& windowRef,sf::Font& fnt);
     ~XandZero()=default;
-    void Reset();
     void HandleEvent(sf::Event& evt);
     void DrawHighlight();
     void Draw();
     WinCondition CheckWinLogic();
 private:
-    WinCondition condition;
-    int UpdatePosition(sf::Vector2f smVct);
+    sf::RenderWindow& winRef;
+    sf::Vector2f size;
     unsigned int arrSize;
     sf::RectangleShape highlightBox;
-    int sizeX;
-    int sizeY;
-    sf::RenderWindow& winRef;
+    WinCondition condition;
     sf::Font font;
     std::vector<sf::Text> xTxt;
     sf::Vector2f originPoz;
-
+    int UpdatePosition(sf::Vector2f smVct);
 };
 
 #endif //TICTACTOE_XANDZERO_H

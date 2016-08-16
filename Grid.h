@@ -13,13 +13,12 @@
 
 class Grid {
 public:
-    Grid(int x,int y, sf::RenderWindow& windowRef);
+    Grid(sf::Vector2f size, sf::RenderWindow& windowRef);
     ~Grid();
     void draw();
     void SetPositions(sf::RectangleShape& box, int i);
 private:
-    int sizeX;
-    int sizeY;
+    sf::Vector2f size;
     int pointSize;
     sf::RenderWindow& winRef;
     sf::RectangleShape* boxes;
