@@ -7,6 +7,8 @@
 
 Grid::Grid(sf::Vector2f sizes, sf::RenderWindow& windowRef) : size{sizes}, winRef{windowRef} {
 
+    boxes=NULL;
+    
     pointSize = 9; // force  9 for the TicTacToe grid.
 
     sf::Vector2f reducedSizes(size.x / 3, size.y / 3);
