@@ -100,25 +100,29 @@ void XandZero::Draw() {
 }
 
 int XandZero::UpdatePosition(sf::Vector2f smVct) {
-    if (smVct.x == originPoz.x && smVct.y == originPoz.y)
-        return 0;
-    else if (smVct.x == (originPoz.x + (size.x / 3)) && smVct.y == originPoz.y)
-        return 1;
-    else if (smVct.x == (originPoz.x + (2 * size.x / 3)) && smVct.y == originPoz.y)
-        return 2;
-    else if (smVct.x == originPoz.x && smVct.y == (originPoz.y + size.y / 3))
-        return 3;
-    else if (smVct.x == (originPoz.x + (size.x / 3)) && smVct.y == (originPoz.y + size.y / 3))
-        return 4;
-    else if (smVct.x == (originPoz.x + (2 * size.x / 3)) && smVct.y == (originPoz.y + size.y / 3))
-        return 5;
-    else if (smVct.x == originPoz.x && smVct.y == (originPoz.y + 2 * size.y / 3))
-        return 6;
-    else if (smVct.x == (originPoz.x + (size.x / 3)) && smVct.y == (originPoz.y + 2 * size.y / 3))
-        return 7;
-    else if (smVct.x == (originPoz.x + (2 * size.x / 3)) && smVct.y == (originPoz.y + 2 * size.y / 3))
-        return 8;
-    else throw Exceptions("That was unexpected!!! (XandZero.cpp)", 120);
+
+    if(smVct.y==originPoz.y){
+        if(smVct.x == originPoz.x)
+            return 0;
+        else if(smVct.x == (originPoz.x + (size.x / 3)))
+            return 1;
+        else if(smVct.x == (originPoz.x + (2 * size.x / 3)))
+            return 2;
+    } else if(smVct.y == (originPoz.y + size.y / 3)){
+        if(smVct.x == originPoz.x)
+            return 3;
+        else if(smVct.x == (originPoz.x + (size.x / 3)))
+            return 4;
+        else if(smVct.x == (originPoz.x + (2 * size.x / 3)))
+            return 5;
+    } else if(smVct.y == (originPoz.y + 2 * size.y / 3)){
+        if(smVct.x == originPoz.x)
+            return 6;
+        else if(smVct.x == (originPoz.x + (size.x / 3)))
+            return 7;
+        else if(smVct.x == (originPoz.x + (2 * size.x / 3)))
+            return 8;
+    } else throw Exceptions("Should be only 9 cases [0,8](XandZero.cpp)",125);
 }
 
 WinCondition XandZero::CheckWinLogic() { //incomplete

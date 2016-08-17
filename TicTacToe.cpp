@@ -8,6 +8,10 @@
 
 TicTacToe::TicTacToe() {
 
+    window=NULL;
+    game=NULL;
+    scoreBoard=NULL;
+
     unsigned int sizeX=800;
     unsigned int sizeY=600;
     winSize.x=sizeX;
@@ -17,9 +21,12 @@ TicTacToe::TicTacToe() {
     scorePlayerRed=0;
     scorePlayerBlue=0;
 
+    if(!font.loadFromFile("Resources/good times rg.ttf"))
+        throw Exceptions("Failed to load font from file(Resources/good times rg.ttf).", 17);
+
     window = new sf::RenderWindow{{sizeX,sizeY},"TicTacToe"};
-    game = new GameObj{{winSize.x,winSize.y},*window};
-    scoreBoard=new Score{{winSize.x,winSize.y},this->game->getFont(),*window};
+    game = new GameObj{{winSize.x,winSize.y},*window,font};
+    scoreBoard=new Score{{winSize.x,winSize.y},font,*window};
 }
 
 TicTacToe::~TicTacToe(){
@@ -71,7 +78,7 @@ void TicTacToe::Run() {
 void TicTacToe::Replay() {
     delete game;
     game=NULL;
-    game=new GameObj{{winSize.x,winSize.y},*window};
+    game=new GameObj{{winSize.x,winSize.y},*window,font};
 
 }
 

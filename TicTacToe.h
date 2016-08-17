@@ -23,6 +23,7 @@ private:
     int scorePlayerRed;
     int scorePlayerBlue;
     int scoreTie;
+    sf::Font font;
     sf::Vector2f winSize;
     sf::RenderWindow* window;
     GameObj* game;

@@ -4,17 +4,17 @@
 
 #include "GameObj.h"
 
-GameObj::GameObj(sf::Vector2f sizes, sf::RenderWindow& winRef) : size{sizes}, wRef{winRef} {
+GameObj::GameObj(sf::Vector2f sizes, sf::RenderWindow& winRef,sf::Font& someFont) : size{sizes}, wRef{winRef},textFont{someFont} {
 
+    gameGrid=NULL;
+    textBox=NULL;
+    winPauseScreen=NULL;
 
     background.setSize(size);
     background.setPosition(0, 0);
     background.setFillColor(sf::Color::White);
 
     gameGrid=new Grid {size,winRef};
-
-    if(!textFont.loadFromFile("Resources/good times rg.ttf"))
-        throw Exceptions("Failed to load font from file(Resources/good times rg.ttf).", 17);
 
     textBox=new XandZero{size,wRef,textFont};
 
@@ -95,8 +95,4 @@ bool GameObj::isPlayig() {
 
 WinType GameObj::getWinType() const{
     return gameState.winTypeText;
-}
-
-sf::Font &GameObj::getFont() {
-    return textFont;
 }

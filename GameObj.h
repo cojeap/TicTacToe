@@ -18,7 +18,7 @@ private:
     Grid *gameGrid;
     XandZero *textBox;
     WinScreen *winPauseScreen;
-    sf::Font textFont;
+    sf::Font& textFont;
 
     sf::Vector2f size;
 
@@ -29,7 +29,7 @@ private:
     WinCondition gameState;
 
 public:
-    GameObj(sf::Vector2f sizes, sf::RenderWindow& winRef);
+    GameObj(sf::Vector2f sizes, sf::RenderWindow& winRef, sf::Font& someFont);
     ~GameObj();
     WinType  getWinType() const;
     bool isPlayig();
@@ -37,7 +37,6 @@ public:
     void HandleEvent(sf::Event& e);
     void CheckWinType();
     void Draw();
-    sf::Font& getFont();
 };
 
 
