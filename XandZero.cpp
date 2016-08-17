@@ -150,7 +150,7 @@ WinCondition XandZero::CheckWinLogic() { //incomplete
     }
     else {
 
-        for (unsigned int i = 0; i < arrSize - 3; i += 3) {
+        for (unsigned int i = 0; i < arrSize-2; i += 3) {
             if (box[i] == "X" && box[i + 1] == "X" && box[i + 2] == "X") {
                 condition.SetWinType(WinType::winPlayerBlue);
             }
