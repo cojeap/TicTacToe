@@ -125,7 +125,7 @@ int XandZero::UpdatePosition(sf::Vector2f smVct) {
     } else throw Exceptions("Should be only 9 cases [0,8](XandZero.cpp)",125);
 }
 
-WinCondition XandZero::CheckWinLogic() { //incomplete
+WinCondition XandZero::CheckWinLogic() { 
 
     //init
     std::vector<std::string> box;
