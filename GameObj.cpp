@@ -14,7 +14,7 @@ GameObj::GameObj(sf::Vector2f sizes, sf::RenderWindow& winRef) : size{sizes}, wR
     gameGrid=new Grid {size,winRef};
 
     if(!textFont.loadFromFile("Resources/good times rg.ttf"))
-        throw Exceptions("Failed to load font from file.", 12);
+        throw Exceptions("Failed to load font from file(Resources/good times rg.ttf).", 17);
 
     textBox=new XandZero{size,wRef,textFont};
 

@@ -28,7 +28,6 @@ private:
 
     WinCondition gameState;
 
-
 public:
     GameObj(sf::Vector2f sizes, sf::RenderWindow& winRef);
     ~GameObj();

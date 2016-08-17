@@ -2,6 +2,8 @@
   <dictionary name="petru">
     <words>
       <w>gameobj</w>
+      <w>playig</w>
+      <w>sfml</w>
       <w>wincondition</w>
       <w>winscreen</w>
     </words>
